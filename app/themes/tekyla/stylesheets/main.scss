@@ -1114,14 +1114,35 @@ html.backend {
 
 }
 
+.flash-overlay{
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(black, 0.35);
+}
 
 .flash {
-  padding: $default-gap round($default-ratio*$default-gap);
-  margin: $default-gap 0;
+  //padding: $default-gap round($default-ratio*$default-gap);
+  //margin: $default-gap 0;
   html.backend & {
     margin-left: $default-gap;
     margin-right: $default-gap;
     clear: both;
+    left: 0;
+    right: 0;
+    position:absolute;
+    z-index: 111;
+    width: 50%;
+    margin: 0 auto;
+    height: 100px;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 5px;
   }
   vertical-align: middle;
   color: $text-color;
@@ -1134,20 +1155,32 @@ html.backend {
     @include margin-right($default-gap);
   }
   .message {
+    padding-top: 30px;
+  }
+  .message {
     &, * {
-      display: inline;
+      display: inline-block;
       vertical-align: baseline;
       font-size: $fs-normal;
       line-height: $lh-normal;
+      text-align: left;
+      vertical-align: middle;
+      margin-right: 30px;
+      margin: 0 auto;
     }
     h3 {
       font-weight: bold;
       $gap: floor(($default-gap - $menu-border-width)/2);
       @include margin-right($default-gap);
+      margin: 0 auto;
+      text-align: left;
+      display: block;
     }
     p {
-      display: inline;
       font-weight: normal;
+      margin: 0 auto;
+      text-align: left;
+      display: block;
     }
     ul {
       padding: round($fs-normal * 0.25);
@@ -1175,11 +1208,27 @@ html.backend {
     line-height: $lh-normal;
     font-weight: bold;
     vertical-align: middle;
+    z-index: 11;
+    //margin-top: -5px;
+    margin-right: 5px;
     &:hover,
     &:active {
       opacity: 0.7;
     }
   }
+}
+
+.flash.success {
+  background: rgba(221, 232, 204, 0.88) !important;
+}
+.flash.warning {
+  background: rgba(236, 204, 131, 0.88) !important;
+}
+.flash.error {
+  background: rgba(236, 140, 128, 0.88) !important;
+}
+.flash.information {
+  background: rgba(208, 223, 253, 0.88) !important;
 }
 
 .checkbox-true, .checkbox-false {

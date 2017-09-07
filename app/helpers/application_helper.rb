@@ -741,7 +741,7 @@ module ApplicationHelper
     code = ''.html_safe
     return code unless messages
     messages.each do |message|
-      code << "<div class='flash #{mode}' data-alert=\"true\"><a href=\"#\" class=\"close\">&times;</a><div class='icon'></div><div class='message'><h3>#{mode.t(scope: 'notifications.levels')}</h3><p>#{h(message).gsub(/\n/, '<br/>')}</p></div></div>".html_safe
+      code << "<div class='flash-overlay'></div><div class='flash #{mode}' data-alert=\"true\"><a href=\"#\" class=\"close\">&times;</a><div class='icon'></div><div class='message'><h3>#{mode.t(scope: 'notifications.levels')}</h3><p>#{h(message).gsub(/\n/, '<br/>')}</p></div></div>".html_safe  #Nibo Tech Pt:feature/ux-debug/#67-message-box-change
     end
     code
   end

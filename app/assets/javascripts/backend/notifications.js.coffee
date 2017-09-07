@@ -1,5 +1,11 @@
 ((E, $) ->
   'use strict'
+
+
+  closeflash = () ->
+    #$('.flash-overlay').remove();
+    #$('.flash').remove();
+
   E.notifications =
     delay: 60
     read: () ->
@@ -9,7 +15,7 @@
         data:
           ago: E.notifications.delay
         success: (data, status, request) ->
-          # Update indicator state
+# Update indicator state
           indicator = $('*[data-toggle="notifications"]')
           indicator.attr('title', data.status)
           if data.count > 0
@@ -28,13 +34,13 @@
 
     notify: (message) ->
       if Notification.permission is "granted"
-        # If it's okay let's create a notification
+# If it's okay let's create a notification
         notification = new Notification(message)
 
-      # Otherwise, we need to ask the user for permission
+# Otherwise, we need to ask the user for permission
       else if Notification.permission isnt 'denied'
         notif = (permission) ->
-          # If the user accepts, let's create a notification
+# If the user accepts, let's create a notification
           if permission is "granted"
             new Notification(message)
         Notification.requestPermission(notif)
@@ -48,5 +54,17 @@
 
     window.clearInterval(E.notifications.interval)
     E.notifications.interval = window.setInterval(E.notifications.read, E.notifications.delay * 1000)
+
+    $(document).on 'click','.flash-overlay',(e)->
+      e.preventDefault()
+      closeflash()
+
+    $(document).on 'click','.flash .close',(e)->
+      e.preventDefault()
+      closeflash()
+
+    setTimeout ->
+      closeflash()
+    , 3000
 
 ) ekylibre, jQuery
