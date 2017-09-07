@@ -4,6 +4,7 @@
       %i
       = file_field_tag(:attachments, name: 'attachments[document_attributes][file]', multiple: true, data: { attach: backend_attachments_path(subject_id: resource.id, subject_type: resource_model.name) })
     .attachment-files
+      .deleting-spinner
       .attachment-files-placeholder= :no_attachments.tl
       - resource.attachments.each do |attachment|
         .file{ data: { attachment_preview: backend_attachment_path(attachment, format: :pdf) } }

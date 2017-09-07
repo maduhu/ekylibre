@@ -26,7 +26,7 @@ $attachments-overlay: rgba(white, 0.7);
     @include transform(rotate(0deg));
   }
   100% {
-    @include transform(rotate(359deg));
+    @include transform(rotate(360deg));
   }
 }
 
@@ -37,6 +37,21 @@ $attachments-overlay: rgba(white, 0.7);
 
     display: table;
     width: 100%;
+
+    .deleting-spinner {
+      width: 35px;
+      height:35px ;
+      border: 3px solid $mapbar-background-color;
+      border-top: 3px solid $active-color;
+      border-radius: 50%;
+      margin: auto;
+      position: absolute;
+      left: 0;
+      right: 0;
+      @include animation(spin 1s infinite steps(8));
+      @include inline-block;
+      display: none;
+    }
 
     .attachments-upload {
       i {
@@ -94,18 +109,26 @@ $attachments-overlay: rgba(white, 0.7);
       }
 
     }
+    .attachment-files.in.hover {
+      background-color: #a5a5a5;
+      padding-top: 5px;
+      padding-bottom: 7px;
+      transition: all 0.4ms;
+      -webkit-transition: all 0.4ms;
+    }
 
     .attachment-files {
       display: inline-block;
-      min-height: $attachment-files-height;
+      min-height:$attachment-panel-height;
       position: relative;
-
+      width:100%;
       z-index: 0;
 
       .attachment-files-placeholder {
         color: mix($neutral-color, white);
         height: $attachment-panel-height;
         line-height: $attachment-panel-height;
+        padding-left: 10px;
       }
 
       .attachment-files-bitrate {

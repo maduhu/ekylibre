@@ -57,14 +57,14 @@
         done: (e, data) ->
           file = $(data.context).closest('.file')
           result = data.result
-          file.attr('data-attachment-preview', result.path)
+          file.attr('data-attachment-preview', result.document.file_path)
           file.find('.file-name').html(result.name)
           file.removeClass('loading').removeClass('failed')
 
           file.find('.file-body').css("background-image", "url('#{result.document.thumbnail_path}')")
 
           indicator = file.find('*[data-attachment-destroy]')
-          indicator.data('href', result.path)
+          indicator.data('href', result.document.file_path)
           indicator.removeAttr 'disabled'
 
         fail: (e, data) ->
@@ -81,6 +81,8 @@
         e.preventDefault()
         url = $(this).attr('href')
         if url
+          $(".deleting-spinner").show()
+          $(".deleting-spinner").css("display","block")
           $.ajax
             url: url
             method: 'post'
@@ -88,9 +90,11 @@
             success: (data) =>
               $(e.currentTarget).closest('.file').remove()
               widget._refreshPlaceholder()
+              $(".deleting-spinner").hide()
             error: (data) =>
               $(e.currentTarget).closest('.file').addClass 'failed'
               console.log 'Unable to delete file'
+              $(".deleting-spinner").hide()
         else
           $(e.currentTarget).closest('.file').remove()
           widget._refreshPlaceholder()
@@ -141,7 +145,7 @@
           window.dropZoneTimeout = null
           dropZone.removeClass 'in hover'
           return
-        ), 100)
+        ), 2000)
         return
 
       @_refreshPlaceholder()
