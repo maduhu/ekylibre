@@ -209,6 +209,8 @@ module ApplicationHelper
           html_options[:disabled] = true
           return content_tag(:a, name, html_options)
         end
+      elsif options.is_a?(Hash) && (options[:action].to_s == "edit" || options[:action].to_s == "new" || options[:action].to_s == "edit_many")    #Nibo Tech Pt:feature/ux-debug/#17-modal-for-edition-form
+        html_options[:data] = {:toggle=>"dialog", :refresh=>true}
       end
 
       html_options = convert_options_to_data_attributes(options, html_options)
@@ -458,6 +460,7 @@ module ApplicationHelper
           options = args.extract_options!
           item_options = {}
           item_options[:class] = options.delete(:as) if options.key?(:as)
+          options[:data] = {toggle: "dialog", refresh: true}  #Nibo Tech Pt:feature/ux-debug/#17-modal-for-edition-form
           content_tag(:li, link_to(*args, options, &item.block), item_options)
         elsif item.name == :separator
           content_tag(:li, '', class: 'separator')

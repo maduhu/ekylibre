@@ -160,6 +160,8 @@
     if dropdown?
       dropdown.dropdown('toggle')
 
+    if !window.app? && String(window.app) =="undefined"  #
+      window.app=new golumn();
     E.dialog.open app.rebuildUrl({base_url: e.currentTarget.getAttribute('href'), parameters: $(e.currentTarget).data('parameters'), reference_name: $(e.currentTarget).data('reference-name')}),
       returns:
         success: (frame, data, status, request) ->

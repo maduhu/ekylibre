@@ -1344,10 +1344,10 @@ html.backend {
 .ui-dialog {
   position: absolute;
   background: transparent;
-  border: $default-gap solid rgba(black, 0.5);
-  $radius: $default-gap + $default-border-radius;
+  border: $default-gap - 1 solid #000000;
+  $radius: $default-gap ;
   @include border-radius($radius);
-  @include box-shadow(0 0 $radius rgba(0, 0, 0, 0.3));
+  //@include box-shadow(0 0 $radius rgba(0, 0, 0, 0.3));
   overflow: hidden;
   .ui-dialog-titlebar {
     padding: 4px;
@@ -1371,8 +1371,9 @@ html.backend {
       color: $text-color;
       background: transparent;
       @include opacity(0.6);
-      height: 16px;
-      width: 16px;
+      overflow: hidden;
+      height: 28px;
+      width: 28px;
       padding: 2px;
       .ui-icon, .ui-button-text {
         display: none;
@@ -1390,6 +1391,14 @@ html.backend {
     overflow: auto;
     zoom: 1;
     padding: 0; // $default-gap;
+    .form-fields {
+      max-height: 400px;
+    }
+    .form-actions a.primary,
+    .form-actions a.btn,
+    {
+      margin: 0 10px;
+    }
   }
 }
 
@@ -1399,7 +1408,7 @@ html.backend {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(black, 0.15);
+  background: rgba(black, 0.35);
 }
 
 

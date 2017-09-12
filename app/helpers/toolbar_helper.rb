@@ -90,10 +90,22 @@ module ToolbarHelper
       options = args.extract_options!
       if @template.resource
         if @template.resource.updateable?
-          tool(options[:label] || :edit.ta, action: :edit, id: @template.resource.id, redirect: options[:redirect])
+          tool(options[:label] || :edit.ta,{ action: :edit, id: @template.resource.id, redirect: options[:redirect]}, {data: {toggle: "dialog", refresh: true}})
         end
       else
-        tool(options[:label] || :edit.ta, { action: :edit, redirect: options[:redirect] }, options.except(:redirect, :label))
+        options[:data] = {toggle: "dialog", refresh: true}
+        tool(options[:label] || :edit.ta, { action: :edit, redirect: options[:redirect]}, options.except(:redirect, :label))
+      end
+    end
+
+    def new(*args)
+      options = args.extract_options!
+      if @template.resource
+        if @template.resource.updateable?
+          tool(options[:label] || :new.ta,{ action: :new, id: @template.resource.id, redirect: options[:redirect]}, {data: {toggle: "dialog", refresh: true}})
+        end
+      else
+        tool(options[:label] || :new.ta, { action: :new, redirect: options[:redirect]}, options.except(:redirect, :label))
       end
     end
 
