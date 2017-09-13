@@ -76,9 +76,8 @@ module CharentesAlliance
                   Entity.of_company.mails.create!(by_default: true)
 
         # create an parcel if not exist
-        parcel = Parcel.find_by(reference_number: r.parcel_number, currency: 'EUR', nature: :incoming) ||
-                 Parcel.create!(
-                   nature: :incoming,
+        parcel = Reception.find_by(reference_number: r.parcel_number, currency: 'EUR', nature: :incoming) ||
+                 Reception.create!(
                    currency: 'EUR',
                    reference_number: r.parcel_number,
                    planned_at: r.ordered_on,
