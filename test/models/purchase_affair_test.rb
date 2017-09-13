@@ -68,7 +68,7 @@ class PurchaseAffairTest < ActiveSupport::TestCase
   test 'balancing with payment' do
     purchase = new_valid_purchases_invoice
 
-    payment = OutgoingPayment.create!(
+    payment = PurchasePayment.create!(
       payee: purchase.supplier,
       amount: purchase.amount,
       to_bank_at: Time.zone.now,
@@ -101,7 +101,7 @@ class PurchaseAffairTest < ActiveSupport::TestCase
   test 'balancing with payment and a loss gap' do
     purchase = new_valid_purchases_invoice
 
-    payment = OutgoingPayment.create!(
+    payment = PurchasePayment.create!(
       payee: purchase.supplier,
       amount: purchase.amount + 5,
       to_bank_at: Time.zone.now,

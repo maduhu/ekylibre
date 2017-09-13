@@ -58,6 +58,7 @@
 # Sale            |    X    |         |
 # SaleCredit      |         |    X    |
 # SaleGap         | Profit! |  Loss!  |
+# Payslip         |         |    X    |
 # Purchase        |         |    X    |
 # PurchaseCredit  |         |         |
 # PurchaseGap     | Profit! |  Loss!  |
@@ -79,6 +80,7 @@ class Affair < Ekylibre::Record::Base
   has_many :gaps,              inverse_of: :affair # , dependent: :delete_all
   has_many :incoming_payments, inverse_of: :affair, dependent: :nullify
   has_many :outgoing_payments, inverse_of: :affair, dependent: :nullify
+  has_many :payslips,          inverse_of: :affair, dependent: :nullify
   has_many :purchases,         inverse_of: :affair, dependent: :nullify
   has_many :sales,             inverse_of: :affair, dependent: :nullify
   has_many :regularizations,   inverse_of: :affair, dependent: :destroy
@@ -94,7 +96,7 @@ class Affair < Ekylibre::Record::Base
   validates :currency, :third, presence: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :letter, :name, :origin, :state, length: { maximum: 500 }, allow_blank: true
-  validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
+  validates :number, uniqueness: true, length: { maximum: 500 }, allow_blank: true
   validates :pretax_amount, :probability_percentage, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
@@ -102,6 +104,7 @@ class Affair < Ekylibre::Record::Base
   accepts_nested_attributes_for :labellings, allow_destroy: true
 
   acts_as_numbered
+
   scope :closeds, -> { where(closed: true) }
   scope :opened, -> { where(closed: false) }
 
@@ -125,14 +128,20 @@ class Affair < Ekylibre::Record::Base
 
   before_save :letter_journal_entries
 
+  def number
+    "A#{id.to_s.rjust(7, '0')}"
+  end
+
   def work_name
     number.to_s
   end
 
-  # return the first deal number for the given type
-  def deal_work_name(type = Purchase)
-    d = deals_of_type(type)
-    return d.first.number if d.count > 0
+  # Returns the first deal number for the given type as deal work name.
+  # FIXME: Not sure that's a good method. Why the first deal number is used as the
+  #        "deal work name".
+  def deal_work_name
+    d = deals_of_type(self.class.deal_class).first
+    return d.number if d
     nil
   end
 
@@ -151,7 +160,7 @@ class Affair < Ekylibre::Record::Base
 
     # Returns types of accepted deals
     def affairable_types
-      @affairable_types ||= %w[SaleGap PurchaseGap Sale Purchase IncomingPayment OutgoingPayment Regularization DebtTransfer].freeze
+      @affairable_types ||= %w[SaleGap PurchaseGap Sale Purchase Payslip IncomingPayment OutgoingPayment Regularization DebtTransfer].freeze
     end
 
     # Removes empty affairs in the whole table
@@ -249,7 +258,7 @@ class Affair < Ekylibre::Record::Base
   end
 
   def finishable?
-    !multi_thirds? && unbalanced?
+    unbalanced? && gap_class && !multi_thirds?
   end
 
   def debt_transferable?
@@ -345,7 +354,11 @@ class Affair < Ekylibre::Record::Base
   end
 
   def gap_class
-    raise NotImplementedError
+    nil
+  end
+
+  def self.deal_class
+    name.gsub(/Affair$/, '').constantize
   end
 
   def originator

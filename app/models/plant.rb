@@ -27,6 +27,7 @@
 #  birth_farm_number            :string
 #  born_at                      :datetime
 #  category_id                  :integer          not null
+#  codes                        :jsonb
 #  country                      :string
 #  created_at                   :datetime         not null
 #  creator_id                   :integer
@@ -146,7 +147,12 @@ class Plant < Bioproduct
   end
 
   def best_activity_production(options = {})
-    ActivityProduction.where(support: LandParcel.shape_intersecting(shape)).current.first || super
+    at = options[:at]
+    at ||= Time.now
+    intersecting = LandParcel.shape_intersecting(shape)
+    current_intersecting = intersecting.at(at)
+    biggest_intersecting = current_intersecting.max_by { |lp| lp.shape.intersection(shape).area }
+    biggest_intersecting || super
   end
 
   # INSPECTIONS RELATED
@@ -167,8 +173,16 @@ class Plant < Bioproduct
     curves(categories, cat_percentage, nothing, nothing)
   end
 
+  # Returns unique varieties
+  def self.unique_varieties
+    pluck(:variety)
+      .uniq
+      .map { |variety| Nomen::Variety.find(variety) }
+  end
+
   private
 
+  # FIXME: Why this code is here??? Not linked to Plant
   def curves(collection, set_first_val, get_value, get_name, round = 2)
     hashes = inspections.reorder(:sampled_at).map do |intervention|
       pairs = collection.map do |grouping_crit|
@@ -184,6 +198,7 @@ class Plant < Bioproduct
     merge_all(hashes)
   end
 
+  # FIXME: Why this code is here??? Not linked to Plant
   # [ {[1]}, {[2]}, {[3]} ] => { [1,2], [3] }
   def merge_all(hashes)
     hashes.reduce do |final, caliber_hash|
@@ -191,6 +206,7 @@ class Plant < Bioproduct
     end
   end
 
+  # FIXME: Why this code is here??? Not linked to Plant
   # [[1, 2], [1, 3], [2, 3]] => { 1: [2, 3], 2: [3] }
   def pairs_to_hash(array_of_pairs)
     array_of_pairs

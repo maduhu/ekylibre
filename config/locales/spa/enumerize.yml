@@ -94,6 +94,7 @@ spa:
         purchase: "Compra"
         sale: "Venta"
         stock: "Valores"
+        travel_cost: "Viajar"
     crumb:
       nature:
         hard_start: "Inicio difícil,"
@@ -243,6 +244,7 @@ spa:
     intervention_working_period:
       nature:
         intervention: "Intervención"
+        pause: "Pausa"
         preparation: "Preparación"
         travel: "Viajar"
     journal:
@@ -253,7 +255,7 @@ spa:
         fixed_assets: "Los activos fijos"
         forward: "A cargo de avance"
         purchases: "Las compras"
-        # result: "Result"
+        result: "Resultado"
         sales: "Ventas"
         stocks: "Cepo"
         various: "Diversas operaciones"

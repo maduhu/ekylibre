@@ -2773,9 +2773,6 @@ a[data-annotate] {
   height: 100%;
 }
 
-
-.active-list.mask-lettered-items {
-  .lettered-item {
-    display: none;
-  }
+.label-important {
+  color: $invalid-color;
 }
