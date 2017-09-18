@@ -7,10 +7,9 @@
       element = $(this)
       if element.attr("autocomplete") isnt "off"
         locale = element.attr("lang") or I18n.locale.slice(0, 2) # until we get corresponding locale codes
-        options = {}
-        $.extend options, $.datepicker.regional[locale],
-          dateFormat: "yy-mm-dd"
-          maxDate: element.data('max-date')
+        options = $.extend({ }, $.datepicker.regional[locale],
+          #dateFormat: "yy-mm-dd"
+          maxDate: element.data('max-date'))
         element.datepicker options
         element.attr "autocomplete", "off"
       return
@@ -20,13 +19,11 @@
       if element.attr("autocomplete") isnt "off"
         element.attr("lang")
         locale = element.attr("lang") or I18n.locale.slice(0, 2) # until we get corresponding locale codes
-        options = {}
-        $.extend options,
-          format: "YYYY-MM-DD"
+        options = $.extend({ }, $.datepicker.regional[locale],
           language: locale
           showShortcuts: false
           showTopbar: false
-          separator: ' – '
+          separator: ' – ')
         element.dateRangePicker options
         element.attr "autocomplete", "off"
       return
@@ -37,7 +34,6 @@
       if element.attr("autocomplete") isnt "off"
         locale = element.attr("lang") or I18n.locale.slice(0, 2) # until we get corresponding locale codes
         element.datetimepicker
-          format: "YYYY-MM-DD HH:mm"
           locale: locale
           sideBySide: true
           icons:
