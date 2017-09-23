@@ -17,6 +17,7 @@ eng:
       document_template:
         managed: "Managed by the system"
       entity:
+        born_at: "Born on"
         client_accounting_balance: "Client account balance"
         supplier_accounting_balance: "Supplier account balance"
       equipment:
@@ -37,7 +38,7 @@ eng:
       land_parcel_group:
         born_at: "Created at"
       loan:
-        ongoing_at: "Fund raising at"
+        ongoing_at: "Fund raising on"
         started_on: "First repayment started on"
       outgoing_payment:
         delivered: "Given to recipient"
@@ -636,8 +637,8 @@ eng:
     dashboards: "Dashboards"
     # data: "Data"
     dead: "Dead"
-    dead_at: "Dead on"
-    dead_line_at: "Dead line at"
+    dead_at: "Dead at"
+    dead_line_at: "Dead line on"
     deals_count: "Deals count"
     debit: "Debit"
     debt_regularizations: "Debt regularizations"
@@ -1138,7 +1139,7 @@ eng:
     owner: "Owner"
     ownerships: "Ownerships"
     pacage_number: "Pacage number"
-    paid_at: "Paid at"
+    paid_at: "Paid on"
     paid_taxes: "Paid taxes"
     parameter_name: "Parameter name" #?
     parameters: "Parameters"
@@ -1537,7 +1538,7 @@ eng:
     trackings: "Trackings"
     trade_balance: "Trade balance"
     transaction_number: "Transaction number"
-    transfered_at: "Transfered at"
+    transfered_at: "Transfered on"
     transfered_on: "Transfered on"
     transporter: "Transporter"
     transporter_purchase: "Transporter purchase"
@@ -1878,7 +1879,7 @@ eng:
       quantity_gap_on_invoice: "Gap on stock quantity [%{resource} %{number}] from %{entity}"
       sale: "Sale %{number}"
       sales_conditions:
-        downpayment: "A downpayment of %{percentage}% (i.e. %{amount}) must be paid at the signature of this present estimate."
+        downpayment: "A downpayment of %{percentage}% (i.e. %{amount}) must be paid on the signature of this present estimate."
         validity: "This estimate and its general conditions are available until the %{expiration}."
       sales_invoice:
         label:

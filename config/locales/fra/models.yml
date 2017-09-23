@@ -42,6 +42,7 @@ fra:
       document_template:
         managed: "Géré par le système"
       entity:
+        born_at: "Né sur"
         active: "Active" #?
         client_accounting_balance: "Solde comptable client"
         supplier_accounting_balance: "Solde comptable fournisseur"
@@ -1133,8 +1134,8 @@ fra:
     invited_by: "Inviter par"
     invoice_address: "Adresse pour la facture"
     invoiced: "Facturée" #?
-    invoiced_at: "Facturée le"
-    invoiced_on: "Facturé sur"
+    invoiced_at: "Facturée sur"
+    invoiced_on: "Facturée sur"
     invoices_count: "Nombre de factures" #?
     ip_address: "Adresse IP"
     irrigated: "Irrigué"
@@ -1351,7 +1352,7 @@ fra:
     owner: "Propriétaire"
     ownerships: "Possessions"
     pacage_number: "Numéro de PACAGE"
-    paid_at: "Réglé le"
+    paid_at: "Payé sur"
     paid_taxes: "Taxes payées"
     parameter_name: "Nom du paramètre"
     parameters: "Paramètres"
@@ -1772,7 +1773,7 @@ fra:
     trackings: "Lots traçables"
     trade_balance: "Balance commerciale"
     transaction_number: "Numéro de transaction"
-    transfered_at: "Transféré à"
+    transfered_at: "Transféré sur"
     transfered_on: "Transféré le"
     transfers: "Transferts" #?
     transport: "Transport" #?
