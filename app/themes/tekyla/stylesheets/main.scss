@@ -664,11 +664,11 @@ html.exception {
     }
     i.collapser {
       @include is-icon;
-      @include use-icon(minus-square-o);
+      @include use-icon(angle-down);
       @include float(right);
       margin-top: round(0.36 * $fs-normal);
       @include margin-right(round(0.3 * $fs-normal));
-      display: none;
+      display: block;
     }
     h3 {
       $fs: $fs-normal;
@@ -688,7 +688,7 @@ html.exception {
     > .snippet-title {
       > i.collapser {
         display: block;
-        @include use-icon(caret-down);
+        @include use-icon(angle-left);
       }
     }
   }
