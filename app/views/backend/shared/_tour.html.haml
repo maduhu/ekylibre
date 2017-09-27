@@ -5,7 +5,7 @@
     / Modal content
     .modal-content.tour-modal-content
       .modal-header.tour-modal-header
-        %button.close.tour-close{"data-dismiss" => "modal", :type => "button"} X
+        %button.close.tour-close{"data-dismiss" => "modal", type: "button", onclick: 'change_back_side_menus()' } X
       .modal-body
         - if params[:action] == "home"
           .modal-alert.modal-position1
