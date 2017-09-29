@@ -62,6 +62,18 @@ i.icon {
     }
   }
 
+	.float-left{
+    float: left !important;
+  }
+
+	#tour-help {
+    i{
+      @include is-icon($topbar-icon-size);
+      @include use-icon(info);
+      line-height: $topbar-height;
+    }
+  }
+
   #brand {
     @include float(left);
     i {
