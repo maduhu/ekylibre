@@ -165,12 +165,12 @@
     E.dialog.open app.rebuildUrl({base_url: e.currentTarget.getAttribute('href'), parameters: $(e.currentTarget).data('parameters'), reference_name: $(e.currentTarget).data('reference-name')}),
       returns:
         success: (frame, data, status, request) ->
-
-          frame.dialog "close"
-
+         # frame.dialog "close"
           if $(e.currentTarget).data('refresh')
-            window.onLoad()
-
+           # window.onLoad()
+	    location.reload()
+          else
+            frame.dialog "close"
           return
 
         invalid: (frame, data, status, request) ->
